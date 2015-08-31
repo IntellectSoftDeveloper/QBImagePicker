@@ -1,0 +1,22 @@
+/* 
+  QBImagePicker.strings
+  QBImagePicker
+
+  Created by Alexander Burakov on 2015/08/31.
+  Copyright (c) 2015 Intellectsoft Group. All rights reserved.
+*/
+// NOTE: Google translation has been used
+
+"title" = "الصور";
+
+"format_photo" = "%ld صورة";
+"format_photos" = "%ld صور";
+"format_video" = "%ld فيديو";
+"format_videos" = "%ld فيديو";
+"format_photo_and_video" = "%ld صورة، %ld فيديو";
+"format_photos_and_video" = "%ld الصور، %ld فيديو";
+"format_photo_and_videos" = "%ld صورة، %ld فيديو";
+"format_photos_and_videos" = "%ld الصور، %ld فيديو";
+
+"item_selected" = "%ld تفاصيل مختارة";
+"items_selected" = "%ld العناصر المحددة";
