@@ -65,10 +65,15 @@
     return self;
 }
 
+- (UIStoryboard *)imagePickerStoryboard
+{
+    return [UIStoryboard storyboardWithName:@"QBImagePicker" bundle:self.assetBundle];
+}
+
 - (void)setUpAlbumsViewController
 {
     // Add QBAlbumsViewController as a child
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"QBImagePicker" bundle:self.assetBundle];
+    UIStoryboard *storyboard = [self imagePickerStoryboard];
     UINavigationController *navigationController = [storyboard instantiateViewControllerWithIdentifier:@"AlbumsNavigationController"];
     
     [self addChildViewController:navigationController];

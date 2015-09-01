@@ -542,14 +542,18 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    CGSize viewSize = self.view.frame.size; //ios7 workaround
+    CGFloat viewWidth;
     NSUInteger numberOfColumns;
     if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
         numberOfColumns = self.imagePickerController.numberOfColumnsInPortrait;
+        viewWidth = fmin(viewSize.width, viewSize.height);
     } else {
         numberOfColumns = self.imagePickerController.numberOfColumnsInLandscape;
+        viewWidth = fmax(viewSize.width, viewSize.height);
     }
     
-    CGFloat width = (CGRectGetWidth(self.view.frame) - 2.0 * (numberOfColumns + 1)) / numberOfColumns;
+    CGFloat width = (viewWidth - 2.0 * (numberOfColumns + 1)) / numberOfColumns;
     
     return CGSizeMake(width, width);
 }
