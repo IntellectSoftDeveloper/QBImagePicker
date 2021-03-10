@@ -151,7 +151,8 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 
 - (void)updateAssetCollections
 {
-
+    NSMutableArray *assetCollections = [NSMutableArray array];
+    
     // Filter albums
     NSArray *assetCollectionSubtypes = self.imagePickerController.assetCollectionSubtypes;
     NSMutableDictionary *smartAlbums = [NSMutableDictionary dictionaryWithCapacity:assetCollectionSubtypes.count];
@@ -162,24 +163,17 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
             if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeAlbumRegular) {
                 [userAlbums addObject:assetCollection];
             } else if ([assetCollectionSubtypes containsObject:@(assetCollection.assetCollectionSubtype)]) {
-
-                PHAssetCollectionSubtype subtype = assetCollection.assetCollectionSubtype;
-                if (!smartAlbums[@(subtype)]) {
-                    smartAlbums[@(subtype)] = [NSMutableArray array];
-                }
-                [smartAlbums[@(subtype)] addObject:assetCollection];
+                smartAlbums[@(assetCollection.assetCollectionSubtype)] = assetCollection;
             }
         }];
     }
-
-     NSMutableArray *assetCollections = [NSMutableArray array];
-
+    
     // Fetch smart albums
     for (NSNumber *assetCollectionSubtype in assetCollectionSubtypes) {
-        NSArray *collections = smartAlbums[assetCollectionSubtype];
+        PHAssetCollection *assetCollection = smartAlbums[assetCollectionSubtype];
         
-        if (collections) {
-            [assetCollections addObjectsFromArray:collections];
+        if (assetCollection) {
+            [assetCollections addObject:assetCollection];
         }
     }
     
