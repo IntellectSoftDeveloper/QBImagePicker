@@ -151,6 +151,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
 
 - (void)updateAssetCollections
 {
+
     // Filter albums
     NSArray *assetCollectionSubtypes = self.imagePickerController.assetCollectionSubtypes;
     NSMutableDictionary *smartAlbums = [NSMutableDictionary dictionaryWithCapacity:assetCollectionSubtypes.count];
@@ -158,11 +159,11 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     
     for (PHFetchResult *fetchResult in self.fetchResults) {
         [fetchResult enumerateObjectsUsingBlock:^(PHAssetCollection *assetCollection, NSUInteger index, BOOL *stop) {
-            PHAssetCollectionSubtype subtype = assetCollection.assetCollectionSubtype;
-            
-            if (subtype == PHAssetCollectionSubtypeAlbumRegular) {
+            if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeAlbumRegular) {
                 [userAlbums addObject:assetCollection];
-            } else if ([assetCollectionSubtypes containsObject:@(subtype)]) {
+            } else if ([assetCollectionSubtypes containsObject:@(assetCollection.assetCollectionSubtype)]) {
+
+                PHAssetCollectionSubtype subtype = assetCollection.assetCollectionSubtype;
                 if (!smartAlbums[@(subtype)]) {
                     smartAlbums[@(subtype)] = [NSMutableArray array];
                 }
@@ -170,8 +171,8 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
             }
         }];
     }
-    
-    NSMutableArray *assetCollections = [NSMutableArray array];
+
+     NSMutableArray *assetCollections = [NSMutableArray array];
 
     // Fetch smart albums
     for (NSNumber *assetCollectionSubtype in assetCollectionSubtypes) {
